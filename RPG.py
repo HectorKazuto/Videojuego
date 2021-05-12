@@ -152,12 +152,10 @@ class Player(pygame.sprite.Sprite):
 	def jump(self):
 		self.rect.x += 1
 
-		# Check to see if payer is in contact with the ground
 		hits = pygame.sprite.spritecollide(self, ground_group, False)
 
 		self.rect.x -= 1
 
-		# If touching the ground, and not currently jumping, cause the player to jump.
 		if hits and not self.jumping:
 			self.jumping = True
 			self.vel.y = -12
@@ -208,7 +206,9 @@ class Enemy(pygame.sprite.Sprite):
 	def render(self):
 		displaysurface.blit(self.image, (self.pos.x, self.pos.y))
 
-	'''def colide(self):
+	
+
+	def colide(self):
 		hits = pygame.sprite.spritecollide(self, Playergroup, False)
 
 		if hits and player.attacking == True:
@@ -219,10 +219,10 @@ class Enemy(pygame.sprite.Sprite):
 
 	def player_hit(self):
 		if self.cooldown == False:
-			self.cooldown = True # Enable the cooldown
-			pygame.time.set_timer(hit_cooldown, 1000) # Resets cooldown in 1 second
+			self.cooldown = True
+			pygame.time.set_timer(hit_cooldown, 1000)
 
-		pygame.display.colide()'''
+		pygame.display.colide()
 
 	def gravity_check(self):
 		hits = pygame.sprite.spritecollide(enemy ,ground_group, False)
@@ -255,7 +255,7 @@ while True:
 	background.render()
 	ground.render()
 	player.animation()
-	#enemy.colide()
+	enemy.colide()
 	if player.attacking == True:
 		player.attack()
 	player.move()
@@ -267,9 +267,9 @@ while True:
 	FPS_CLOCK.tick(FPS)
 
 	for event in pygame.event.get():
-		'''if event.type == hit_cooldown:
+		if event.type == hit_cooldown:
 			player.cooldown = False
-			pygame.time.set_timer(hit_cooldown, 0)'''
+			pygame.time.set_timer(hit_cooldown, 0)
 
 		if event.type == QUIT:
 			pygame.quit()
