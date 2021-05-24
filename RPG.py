@@ -283,3 +283,4 @@ while True:
 		if event.type == pygame.KEYDOWN:
 			if event.key == pygame.K_SPACE or event.key == ord('w'):
 				player.jump()
+				#
