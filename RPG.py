@@ -186,8 +186,8 @@ class Enemy(pygame.sprite.Sprite):
 		if self.direction == 1:
 			self.pos.x = 700
 			self.pos.y = 235
-
-		hit_cooldown = pygame.USEREVENT + 1
+		self.cooldown = False
+		self.hit_cooldown = pygame.USEREVENT + 1
 
 	def move(self):
 
@@ -214,15 +214,15 @@ class Enemy(pygame.sprite.Sprite):
 		if hits and player.attacking == True:
 			self.kill()
 
-		elif hits and player.attacking == False:
-			player_hit()
+		#elif hits and player.attacking == False:
+			#self.player_hit()
 
 	def player_hit(self):
 		if self.cooldown == False:
 			self.cooldown = True
-			pygame.time.set_timer(hit_cooldown, 1000)
+			pygame.time.set_timer(self.hit_cooldown, 1000)
 
-		pygame.display.colide()
+		self.colide()
 
 	def gravity_check(self):
 		hits = pygame.sprite.spritecollide(enemy ,ground_group, False)
@@ -267,9 +267,9 @@ while True:
 	FPS_CLOCK.tick(FPS)
 
 	for event in pygame.event.get():
-		if event.type == hit_cooldown:
+		if event.type == enemy.hit_cooldown:
 			player.cooldown = False
-			pygame.time.set_timer(hit_cooldown, 0)
+			pygame.time.set_timer(enemy.hit_cooldown, 0)
 
 		if event.type == QUIT:
 			pygame.quit()
