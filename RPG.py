@@ -7,9 +7,9 @@ from tkinter import filedialog
 from tkinter import *
 import numpy
 
-pygame.init()  # Begin pygame
+pygame.init()  # Empezar pygame
 
-# Declaring variables to be used through the program
+#Declarar variables que seran usados en el programa
 vec = pygame.math.Vector2
 HEIGHT = 350
 WIDTH = 700
@@ -19,7 +19,7 @@ FPS = 60
 FPS_CLOCK = pygame.time.Clock()
 COUNT = 0
 
-# Create the display
+# display
 displaysurface = pygame.display.set_mode((WIDTH, HEIGHT))
 pygame.display.set_caption("Game")
 
@@ -37,19 +37,19 @@ text = regularfont.render('LOAD' , True , color_light)
 
 
 
-# Run animation for the RIGHT
+# animacion de correr a la derecha
 run_ani_R = [pygame.image.load("Player_Sprite_R.png"), pygame.image.load("Player_Sprite2_R.png"),
              pygame.image.load("Player_Sprite3_R.png"),pygame.image.load("Player_Sprite4_R.png"),
              pygame.image.load("Player_Sprite5_R.png"),pygame.image.load("Player_Sprite6_R.png"),
              pygame.image.load("Player_Sprite_R.png")]
 
-# Run animation for the LEFT
+# animacion de correr a la izquierda
 run_ani_L = [pygame.image.load("Player_Sprite_L.png"), pygame.image.load("Player_Sprite2_L.png"),
              pygame.image.load("Player_Sprite3_L.png"),pygame.image.load("Player_Sprite4_L.png"),
              pygame.image.load("Player_Sprite5_L.png"),pygame.image.load("Player_Sprite6_L.png"),
              pygame.image.load("Player_Sprite_L.png")]
 
-# Attack animation for the RIGHT
+# animacion de atacar a la derecha
 attack_ani_R = [pygame.image.load("Player_Sprite_R.png"), pygame.image.load("Player_Attack_R.png"),
                 pygame.image.load("Player_Attack2_R.png"),pygame.image.load("Player_Attack2_R.png"),
                 pygame.image.load("Player_Attack3_R.png"),pygame.image.load("Player_Attack3_R.png"),
@@ -57,7 +57,7 @@ attack_ani_R = [pygame.image.load("Player_Sprite_R.png"), pygame.image.load("Pla
                 pygame.image.load("Player_Attack5_R.png"),pygame.image.load("Player_Attack5_R.png"),
                 pygame.image.load("Player_Sprite_R.png")]
 
-# Attack animation for the LEFT
+# animacion de atacar a la izquierda
 attack_ani_L = [pygame.image.load("Player_Sprite_L.png"), pygame.image.load("Player_Attack_L.png"),
                 pygame.image.load("Player_Attack2_L.png"),pygame.image.load("Player_Attack2_L.png"),
                 pygame.image.load("Player_Attack3_L.png"),pygame.image.load("Player_Attack3_L.png"),
@@ -65,7 +65,7 @@ attack_ani_L = [pygame.image.load("Player_Sprite_L.png"), pygame.image.load("Pla
                 pygame.image.load("Player_Attack5_L.png"),pygame.image.load("Player_Attack5_L.png"),
                 pygame.image.load("Player_Sprite_L.png")]
 
-# Animations for the Health Bar
+# animacion de vida
 health_ani = [pygame.image.load("heart0.png"), pygame.image.load("heart.png"),
               pygame.image.load("heart2.png"), pygame.image.load("heart3.png"),
               pygame.image.load("heart4.png"), pygame.image.load("heart5.png")]
@@ -112,7 +112,7 @@ class Item(pygame.sprite.Sprite):
 
       def update(self):
             hits = pygame.sprite.spritecollide(self, Playergroup, False)
-            # Code to be activated if item comes in contact with player
+            
             if hits:
                   if player.health < 5 and self.type == 1:
                         player.health += 1
@@ -130,19 +130,19 @@ class Player(pygame.sprite.Sprite):
         self.image = pygame.image.load("Player_Sprite_R.png")
         self.rect = self.image.get_rect()
 
-        # Position and direction
+        # POSICION Y DIRECCIOIN
         self.vx = 0
         self.pos = vec((340, 240))
         self.vel = vec(0,0)
         self.acc = vec(0,0)
         self.direction = "RIGHT"
 
-        # Movement 
+        # MOVIMIENTO
         self.jumping = False
         self.running = False
         self.move_frame = 0
 
-        #Combat
+        #COMBATIR
         self.attacking = False
         self.cooldown = False
         self.immune = False
@@ -156,36 +156,36 @@ class Player(pygame.sprite.Sprite):
     def move(self):
           if cursor.wait == 1: return
           
-          # Keep a constant acceleration of 0.5 in the downwards direction (gravity)
+          
           self.acc = vec(0,0.5)
 
-          # Will set running to False if the player has slowed down to a certain extent
+          
           if abs(self.vel.x) > 0.3:
                 self.running = True
           else:
                 self.running = False
 
-          # Returns the current key presses
+          
           pressed_keys = pygame.key.get_pressed()
 
-          # Accelerates the player in the direction of the key press
+          
           if pressed_keys[K_LEFT]:
                 self.acc.x = -ACC
           if pressed_keys[K_RIGHT]:
                 self.acc.x = ACC 
 
-          # Formulas to calculate velocity while accounting for friction
+          
           self.acc.x += self.vel.x * FRIC
           self.vel += self.acc
-          self.pos += self.vel + 0.5 * self.acc  # Updates Position with new values
+          self.pos += self.vel + 0.5 * self.acc  
 
-          # This causes character warping from one point of the screen to the other
+          
           if self.pos.x > WIDTH:
                 self.pos.x = 0
           if self.pos.x < 0:
                 self.pos.x = WIDTH
         
-          self.rect.midbottom = self.pos  # Update rect with new pos            
+          self.rect.midbottom = self.pos            
 
     def gravity_check(self):
           hits = pygame.sprite.spritecollide(player ,ground_group, False)
@@ -201,12 +201,12 @@ class Player(pygame.sprite.Sprite):
     def update(self):
           if cursor.wait == 1: return
           
-          # Return to base frame if at end of movement sequence 
+          
           if self.move_frame > 6:
                 self.move_frame = 0
                 return
 
-          # Move the character to the next frame if conditions are met 
+          
           if self.jumping == False and self.running == True:  
                 if self.vel.x > 0:
                       self.image = run_ani_R[self.move_frame]
@@ -216,7 +216,7 @@ class Player(pygame.sprite.Sprite):
                       self.direction = "LEFT"
                 self.move_frame += 1
 
-          # Returns to base frame if standing still and incorrect frame is showing
+          
           if abs(self.vel.x) < 0.2 and self.move_frame != 0:
                 self.move_frame = 0
                 if self.direction == "RIGHT":
@@ -225,38 +225,37 @@ class Player(pygame.sprite.Sprite):
                       self.image = run_ani_L[self.move_frame]
 
     def attack(self):        
-          # If attack frame has reached end of sequence, return to base frame      
+               
           if self.attack_frame > 10:
                 self.attack_frame = 0
                 self.attacking = False
 
-          # Check direction for correct animation to display  
+          
           if self.direction == "RIGHT":
                  self.image = attack_ani_R[self.attack_frame]
           elif self.direction == "LEFT":
                  self.correction()
                  self.image = attack_ani_L[self.attack_frame] 
 
-          # Update the current attack frame  
+          
           self.attack_frame += 1
           
 
     def jump(self):
         self.rect.x += 1
 
-        # Check to see if payer is in contact with the ground
+        
         hits = pygame.sprite.spritecollide(self, ground_group, False)
         
         self.rect.x -= 1
 
-        # If touching the ground, and not currently jumping, cause the player to jump.
+        
         if hits and not self.jumping:
            self.jumping = True 
            self.vel.y = -12
 
     def correction(self):
-          # Function is used to correct an error
-          # with character position on left attack frames
+          
           if self.attack_frame == 1:
                 self.pos.x -= 20
           if self.attack_frame == 10:
@@ -264,8 +263,8 @@ class Player(pygame.sprite.Sprite):
                 
     def player_hit(self):
         if self.cooldown == False:      
-            self.cooldown = True # Enable the cooldown
-            pygame.time.set_timer(hit_cooldown, 1000) # Resets cooldown in 1 second
+            self.cooldown = True 
+            pygame.time.set_timer(hit_cooldown, 1000) 
 
             self.health = self.health - 1
             health.image = health_ani[self.health]
@@ -283,11 +282,11 @@ class Enemy(pygame.sprite.Sprite):
         self.pos = vec(0,0)
         self.vel = vec(0,0)
 
-        self.direction = random.randint(0,1) # 0 for Right, 1 for Left
-        self.vel.x = random.randint(2,6) / 2  # Randomised velocity of the generated enemy
-        self.mana = random.randint(1, 3)  # Randomised mana amount obtained upon    
+        self.direction = random.randint(0,1) 
+        self.vel.x = random.randint(2,6) / 2 
+        self.mana = random.randint(1, 3)  
 
-        # Sets the intial position of the enemy
+        
         if self.direction == 0:
             self.pos.x = 0
             self.pos.y = 235
@@ -299,54 +298,53 @@ class Enemy(pygame.sprite.Sprite):
       def move(self):
         if cursor.wait == 1: return
         
-        # Causes the enemy to change directions upon reaching the end of screen    
+           
         if self.pos.x >= (WIDTH-20):
               self.direction = 1
         elif self.pos.x <= 0:
               self.direction = 0
 
-        # Updates positon with new values     
+            
         if self.direction == 0:
             self.pos.x += self.vel.x
         if self.direction == 1:
             self.pos.x -= self.vel.x
             
-        self.rect.topleft = self.pos # Updates rect
+        self.rect.topleft = self.pos 
                
       def update(self):
-            # Checks for collision with the Player
+            
             hits = pygame.sprite.spritecollide(self, Playergroup, False)
 
-            # Activates upon either of the two expressions being true
+            
             if hits and player.attacking == True:
                   self.kill()
                   handler.dead_enemy_count += 1
                   
-                  if player.mana < 100: player.mana += self.mana # Release mana
-                  player.experiance += 1   # Release expeiriance
-                  
+                  if player.mana < 100: player.mana += self.mana 
+                  player.experiance += 1   
                   rand_num = numpy.random.uniform(0, 100)
                   item_no = 0
-                  if rand_num >= 0 and rand_num <= 5:  # 1 / 20 chance for an item (health) drop
+                  if rand_num >= 0 and rand_num <= 5:  
                         item_no = 1
                   elif rand_num > 5 and rand_num <= 15:
                         item_no = 2
 
                   if item_no != 0:
-                        # Add Item to Items group
+                        
                         item = Item(item_no)
                         Items.add(item)
-                        # Sets the item location to the location of the killed enemy
+                        
                         item.posx = self.pos.x
                         item.posy = self.pos.y
                  
 
-            # If collision has occured and player not attacking, call the "hit" func.            
+                    
             elif hits and player.attacking == False:
                   player.player_hit()
                   
       def render(self):
-            # Displayed the enemy on screen
+            
             displaysurface.blit(self.image, self.rect)
 
 
@@ -375,7 +373,7 @@ class EventHandler():
                   self.stage_enemies.append(int((x ** 2 / 2) + 1))
             
       def stage_handler(self):
-            # Code for the Tkinter stage selection window
+            
             self.root = Tk()
             self.root.geometry('200x170')
             
@@ -408,7 +406,7 @@ class EventHandler():
             self.battle = True
             button.imgdisp = 1
  
-      def next_stage(self):  # Code for when the next stage is clicked
+      def next_stage(self):  
             button.imgdisp = 1
             self.stage += 1
             print("Stage: "  + str(self.stage))
@@ -423,19 +421,19 @@ class EventHandler():
                   stage_display.stage_clear()
 
       def home(self):
-            # Reset Battle code
+            
             pygame.time.set_timer(self.enemy_generation, 0)
             self.battle = False
             self.enemy_count = 0
             self.dead_enemy_count = 0
             self.stage = 1
 
-            # Destroy any enemies or items lying around
+            
             for group in Enemies, Items:
                   for entity in group:
                         entity.kill()
             
-            # Bring back normal backgrounds
+            
             castle.hide = False
             background.bgimage = pygame.image.load("Background.png")
             ground.image = pygame.image.load("Ground.png")
@@ -462,7 +460,7 @@ class StageDisplay(pygame.sprite.Sprite):
             self.clear = False
 
       def move_display(self):
-            # Create the text to be displayed
+            
             self.text = headingfont.render("STAGE: " + str(handler.stage), True, color_dark)
             if self.posx < 720:
                   self.posx += 6
@@ -495,14 +493,14 @@ class StatusBar(pygame.sprite.Sprite):
             self.exp = player.experiance
             
       def update_draw(self):
-            # Create the text to be displayed
+            
             text1 = smallerfont.render("STAGE: " + str(handler.stage) , True , color_white)
             text2 = smallerfont.render("EXP: " + str(player.experiance) , True , color_white)
             text3 = smallerfont.render("MANA: " + str(player.mana) , True , color_white)
             text4 = smallerfont.render("FPS: " + str(int(FPS_CLOCK.get_fps())) , True , color_white)
             self.exp = player.experiance
 
-            # Draw the text to the status bar
+            
             displaysurface.blit(text1, (585, 7))
             displaysurface.blit(text2, (585, 22))
             displaysurface.blit(text3, (585, 37))
@@ -525,7 +523,7 @@ class Cursor(pygame.sprite.Sprite):
       def hover(self):
           if 620 <= mouse[0] <= 660 and 300 <= mouse[1] <= 345:
                 pygame.mouse.set_visible(False)
-                cursor.rect.center = pygame.mouse.get_pos()  # update position 
+                cursor.rect.center = pygame.mouse.get_pos()  
                 displaysurface.blit(cursor.image, cursor.rect)
           else:
                 pygame.mouse.set_visible(True)
@@ -586,7 +584,7 @@ while True:
     for event in pygame.event.get():
         if event.type == hit_cooldown:
             player.cooldown = False
-        # Will run when the close window button is clicked    
+          
         if event.type == QUIT:
             pygame.quit()
             sys.exit()
@@ -596,7 +594,7 @@ while True:
                   Enemies.add(enemy)
                   handler.enemy_count += 1
         
-        # For events that occur upon clicking the mouse (left click) 
+         
         if event.type == pygame.MOUSEBUTTONDOWN:
               if 620 <= mouse[0] <= 660 and 300 <= mouse[1] <= 350:
                     if button.imgdisp == 1:
@@ -605,7 +603,7 @@ while True:
                           handler.home()
 
 
-        # Event handling for a range of different key presses    
+            
         if event.type == pygame.KEYDOWN and cursor.wait == 0:
             if event.key == pygame.K_n:
                   if handler.battle == True and len(Enemies) == 0:
@@ -622,13 +620,13 @@ while True:
                     player.attacking = True      
 
 
-    # Player related functions
+    
     player.update()
     if player.attacking == True:
           player.attack() 
     player.move()                
 
-    # Display and Background related functions         
+             
     background.render()
     ground.render()
     button.render(button.imgdisp)
