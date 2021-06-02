@@ -1,4 +1,4 @@
-[img]https://i.imgur.com/rtmGvUL.png[/img]
+<img src="https://images.cooltext.com/5533405.png" width="731" height="85" alt="A.H.A Developments" />
 
 # **Videojuego RPG**
 
