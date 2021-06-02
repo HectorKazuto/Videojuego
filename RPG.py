@@ -281,6 +281,9 @@ class Enemy(pygame.sprite.Sprite):
         self.rect = self.image.get_rect()     
         self.pos = vec(0,0)
         self.vel = vec(0,0)
+        self.wait = 0
+        self.wait_status = False
+        self.turning = 0
 
         self.direction = random.randint(0,1) 
         self.vel.x = random.randint(2,6) / 2 
@@ -294,6 +297,13 @@ class Enemy(pygame.sprite.Sprite):
             self.pos.x = 700
             self.pos.y = 235
 
+      def direction_check(self):
+        if (player.pos.x - self.pos.x < 0 and self.direction == 0):
+          return 1
+        elif (player.pos.x - self.pos.x > 0 and self.direction == 1):
+          return 1
+        else:
+          return 0
 
       def move(self):
         if cursor.wait == 1: return
@@ -310,8 +320,17 @@ class Enemy(pygame.sprite.Sprite):
         if self.direction == 1:
             self.pos.x -= self.vel.x
             
-        self.rect.topleft = self.pos 
-               
+        self.rect.topleft = self.pos
+
+        if self.wait > 60:
+          self.wait_status = True
+        elif int(self.wait) <= 0:
+          self.wait_status = False
+        if (self.direction_check()):
+          self.turn()
+          self.wait = 90
+          self.turning = 1
+
       def update(self):
             
             hits = pygame.sprite.spritecollide(self, Playergroup, False)
@@ -346,6 +365,19 @@ class Enemy(pygame.sprite.Sprite):
       def render(self):
             
             displaysurface.blit(self.image, self.rect)
+      def turn(self):
+        if self.wait > 0:
+          self.wait -= 1
+          return
+        elif int(self.wait) <= 0:
+          self.turning = 0
+           
+        if (self.direction):
+            self.direction = 0
+            self.image = pygame.image.load("enemy.png")
+        else:
+            self.direction = 0
+            self.image = pygame.image.load("enemy_L.png")
 
 
 class Castle(pygame.sprite.Sprite):
@@ -545,6 +577,7 @@ class PButton(pygame.sprite.Sprite):
                         self.image = pygame.image.load("play_small.png")
                                     
             displaysurface.blit(self.image, self.vec)
+
                   
             
 
