@@ -1,4 +1,4 @@
-![img] (https://imgur.com/a/49cQpwF)
+[img]https://i.imgur.com/rtmGvUL.png[/img]
 
 # **Videojuego RPG**
 
