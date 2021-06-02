@@ -7,7 +7,7 @@ from tkinter import filedialog
 from tkinter import *
 import numpy
 
-pygame.init()  # Empezar pygame
+pygame.init()  
 
 #Declarar variables que seran usados en el programa
 vec = pygame.math.Vector2
@@ -633,19 +633,19 @@ while True:
     cursor.hover()
 
 
-    # Render stage display
+    
     if stage_display.display == True:
           stage_display.move_display()
     if stage_display.clear == True:
           stage_display.stage_clear()
 
-    # Rendering Sprites
+    
     castle.update()
     if player.health > 0:
         displaysurface.blit(player.image, player.rect)
     health.render()
 
-    # Status bar update and render
+   
     displaysurface.blit(status_bar.surf, (580, 5))
     status_bar.update_draw()
     handler.update()
