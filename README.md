@@ -1,3 +1,5 @@
+<img src="https://images.cooltext.com/5533405.png" width="731" height="85" alt="A.H.A Developments" />
+
 # **Videojuego RPG**
 
 ## **Descripción**
@@ -18,3 +20,8 @@ Para instalar Tkinter, ejecutar el comando:
 *pip install tk*
 
 En la consola Poweshell o CMD
+
+## **Funcionalidad**
+
+En pocas palabras, el código dibuja distintas imágenes/sprites en la pantalla, las cuales represetan a las diferentes clases u objetos dentro del videojuego.
+Cada clase/objeto tiene diferentes características, las cuales se utilizan para crear las mecánicas de juego
