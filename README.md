@@ -27,3 +27,10 @@ En pocas palabras, el código dibuja distintas imágenes/sprites en la pantalla,
 Cada clase/objeto tiene diferentes características, las cuales se utilizan para crear las mecánicas de juego.
 
 Las clases principales son las del jugador y el enmigo. Estos pueden colisionar entre si. Dependiendo del estado del jugador al momento de colisionar se hará una reacción diferente. Si el jugador está atacando al momento de la colisión, el enemigo morirá. Por otro lado, si el jugador no está atacando al momento de la colisión, el jugador morirá o perderá una vida.
+
+## **Razon**
+
+La razón de por qué decidimos hacer un videojuego así de simple es porque queríamos dar 
+una idea de lo que somos capaces de hacer. Podemos hace cosas grandes o pequeñas y 
+sin importar que tan grande o pequeño hacemos los videojuegos, 
+esos videojuegos tendrán una manera de mejorar alguna habilidad ya sea algo innecesario o no. 
