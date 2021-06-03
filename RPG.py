@@ -377,7 +377,7 @@ class Enemy(pygame.sprite.Sprite):
             self.image = pygame.image.load("enemy.png")
         else:
             self.direction = 0
-            self.image = pygame.image.load("enemy_L.png")
+            self.image = pygame.image.load("enemy.png")
 
 
 class Castle(pygame.sprite.Sprite):
